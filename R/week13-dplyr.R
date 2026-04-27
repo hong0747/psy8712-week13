@@ -23,13 +23,13 @@ testscores_tbl <- dbGetQuery(conn, "SELECT * FROM datascience_testscores")
 offices_tbl <- dbGetQuery(conn, "SELECT * FROM datascience_offices")
 
 ## Save as .csv
-write_csv(employees_tbl, "../data/employees.csv")
-write_csv(testscores_tbl, "../data/testscores.csv")
-write_csv(offices_tbl, "../data/offices.csv")
+write_csv(employees_tbl, "../out/employees.csv")
+write_csv(testscores_tbl, "../out/testscores.csv")
+write_csv(offices_tbl, "../out/offices.csv")
 
 ## Combine data such that employees without test scores are removed
 week13_tbl <- employees_tbl %>%
-  innerjoin(testscores_tbl, by = "employee_id") %>%
+  inner_join(testscores_tbl, by = "employee_id") %>%
   left_join(offices_tbl, by = c("city" = "office"))
 
-write_csv(week12_tbl, "../data/week13.csv")
+write_csv(week13_tbl, "../out/week13.csv")
